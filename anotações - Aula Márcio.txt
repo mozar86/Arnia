@@ -1,0 +1,1 @@
+Programar computador é um jogo de montar que tem 5 partes. O primeiro comando é a saída de dados, o segundo é entrada de dados, o terceiro é decisão, o quarto é repetição e o quinto é atribuição. 
