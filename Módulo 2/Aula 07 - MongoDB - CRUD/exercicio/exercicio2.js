@@ -22,13 +22,14 @@ class Produto {
 //create
 async function createProduct(data) {
     const product = await marketCollection.insertOne({
-        nome,
-        descricao,
-        preco,
-        estoque,
-        categoria
+        nome: data.nome,
+        descricao: data.descricao,
+        preco: data.preco,
+        estoque: data.estoque,
+        categoria: data.categoria
     })
     console.log(product)
+    client.close()
 }
 //read
 async function getProductByName (data) {
@@ -55,4 +56,4 @@ async function deleteProduct(id) {
     console.log(`O produto ${deleted} foi deletado do sistema!`)
 }
 
-createProduct('Feijão Turquesa', 'Pacote 1kg', 'R$ 7,99', 'Quantidade em estoque: 229 unidades', 'Cereais' )
+createProduct( {nome:'Feijão Turquesa', descricao:'Pacote 1kg', preco:'R$ 7,99', estoque:'Quantidade em estoque: 229 unidades', categoria:'Cereais'} )
