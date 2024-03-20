@@ -1,6 +1,7 @@
-import { ObjectId, Db, Collection } from 'mongodb';
+import { ObjectId, Db, Collection, WithId } from 'mongodb';
+import { IUser, User } from './User';
 
-class UserRepository {
+export class UserRepository {
     usersCollection: Collection;
     constructor(db: Db) {
         this.usersCollection = db.collection('users');
@@ -10,19 +11,19 @@ class UserRepository {
         return await this.usersCollection.find({}).toArray()
     }
 
-    async listById(id) {
-        return await this.usersCollection.findOne({_id: new ObjectId(id)})
+    async listById(id: string): Promise<WithId<IUser> | null> {
+        return await this.usersCollection.findOne<WithId<User>>({_id: new ObjectId(id)})
     }
 
-    async saveUser(user) {
+    async saveUser(user: IUser) {
         return await this.usersCollection.insertOne(user)
     }
 
-    async updateUser(id, user) {
+    async updateUser(id: string, user: IUser) {
 
     }
 
-    async deleteUser(id) {
+    async deleteUser(id: string) {
         
     }
 }
