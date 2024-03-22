@@ -1,12 +1,6 @@
-criar um projeto node: npm init -y
-npm install typescript ts-node
-arquivo de execução do typescript: node nome_do_arquivo
-rodar script da biblioteca: npx tsc --init
-npx ts-node 
-npm run ___
-npm ts-node-dev
-
-npm install tsx
-npx tsx watch ./index.ts
-
-botar tipagem do ts no node: npm i --save-dev @types/express
+1 - npm init -y
+2 - npm install typescript ts-node
+3 - No arquivo package.json, ir na parte de scripts (ou criá-lo), para criar um comando para executar o arquivo. Exemplo: "start": "node src/index.ts". Depois pra executar, teria que digitar: npm run start
+4 - npx tsc --init
+5 - npx ts-node local_do_projeto (pode-se criar um atalho para executar esse comando também, no package.json e em scripts, a diferença é que o comando só precisa do npx no terminal)
+6 - Ir no package.json, scripts, e inserir um novo atalho para o comando: ts-node-dev local_do_arquivo
