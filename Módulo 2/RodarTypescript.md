@@ -1,6 +1,8 @@
 
 1 - npm init -y
-
+npm install express
+npm i typescript ts-node-dev -D
+npx tsc --init
 2 - npm install typescript ts-node
 
 3 - No arquivo package.json, ir na parte de scripts (ou criá-lo), para criar um comando para executar o arquivo. Exemplo: "start": "node src/index.ts". Depois pra executar, teria que digitar: npm run start
