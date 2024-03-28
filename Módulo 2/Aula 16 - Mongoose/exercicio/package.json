@@ -1,0 +1,21 @@
+{
+  "name": "exercicio",
+  "version": "1.0.0",
+  "description": "- title\r - description\r - city\r - location\r - phoneNumber\r - isDonated\r - createdAt",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node src/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "ts-node": "^10.9.2"
+  },
+  "devDependencies": {
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.4.3"
+  }
+}
