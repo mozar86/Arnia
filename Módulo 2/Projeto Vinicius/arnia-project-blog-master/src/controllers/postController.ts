@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+
 import { PostRepository } from "../repositories/PostRepository";
 import { PostService } from "../services/PostService";
 import { Post } from "../models/PostModel";
@@ -11,10 +12,16 @@ export async function createPostController(
   request: Request,
   response: Response
 ) {
-  const { author, content } = request.body;
-  const post = await postService.createPost({ author, content });
+  try {
+    const { author, content } = request.body;
+    
+    const authorId = new mongoose.Types.ObjectId(author);
+    const post = await postService.createPost({ author: authorId, content });
 
-  response.status(201).send({ post });
+    response.status(201).send({ post });
+  } catch (error: any) {
+    response.status(400).send({message: error.message})
+  }
 }
 
 export async function listAllPostsController(
