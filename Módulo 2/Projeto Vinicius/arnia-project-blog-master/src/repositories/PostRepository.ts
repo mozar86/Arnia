@@ -17,6 +17,23 @@ export class PostRepository {
     return newPost;
   }
 
+  async updatePostById(postId: mongoose.Types.ObjectId, content: string): Promise<IPost | null> { //6- Criou o repository
+    return this.postModel
+      .findOneAndUpdate(
+        {
+          _id: postId,
+        },
+        {
+          content,
+          updatedAt: new Date(),
+        },
+        {
+          returnDocument: "after",
+        }
+      )
+      .exec();
+  }
+
   async getAllPosts(): Promise<IPost[]> {
     return this.postModel.find({}).populate("author").exec();
   }

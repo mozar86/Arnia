@@ -12,6 +12,15 @@ export class PostService {
     return await this.postRepository.createPost(postData);
   }
 
+  async updatePost(postId: mongoose.Types.ObjectId, content: string): Promise<IPost> { //5- Criou o service
+    const updateResult = await this.postRepository.updatePostById(postId, content); //7- Criou tratamento do retorno do update
+
+    if (!updateResult) {
+      throw new Error("Não foi encontrado um post com o id enviado!");
+    }
+    return updateResult;
+  }
+
   async getAllPosts(): Promise<IPost[]> {
     return this.postRepository.getAllPosts();
   }

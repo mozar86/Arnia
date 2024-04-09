@@ -24,6 +24,24 @@ export async function createPostController(
   }
 }
 
+export async function updatePostController( //2- Criou o controller
+  request: Request,
+  response: Response
+) {
+  try {
+    const { content } = request.body;
+    const { postId } = request.params;
+    
+    const id = new mongoose.Types.ObjectId(postId);
+
+    const postUpdateResult = await postService.updatePost(id, content); //8- Criou a chamada do serviço
+
+    response.status(201).send({ post: postUpdateResult });
+  } catch (error: any) {
+    response.status(400).send({message: error.message})
+  }
+}
+
 export async function listAllPostsController(
   request: Request,
   response: Response
