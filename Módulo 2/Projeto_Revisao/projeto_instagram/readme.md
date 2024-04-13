@@ -25,3 +25,4 @@
 [] Typescript - 
 [] Express - microframework - criar rota
 [] Mongoose - manipular o banco de dados
+

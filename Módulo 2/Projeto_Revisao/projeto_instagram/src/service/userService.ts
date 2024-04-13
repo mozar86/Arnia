@@ -22,4 +22,8 @@ export class UserService {
 
         return User
     }
+
+    async findAllUsers(){
+      return this.userRepositoy.findAllUsers()
+    }
 } 

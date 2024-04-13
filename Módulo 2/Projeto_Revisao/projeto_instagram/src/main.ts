@@ -1,15 +1,19 @@
 import 'dotenv/config'
 import express from "express"
-import { createUserController } from "./controller/userController"
+
 import { connectDatabase } from "./database/database"
 import './env'
+import router from './routes'
+import { logMiddleware } from './middlewares/logMiddleware'
 
 connectDatabase()
-const app = express()
 const port = 3000
+const app = express()
 
 app.use(express.json())
-app.post("/users", createUserController)
+app.use(logMiddleware)
+app.use("/", router)
+
 
 app.listen(3000, () => {
   console.log(`🚀 Server is running: http://localhost:${port}/`)

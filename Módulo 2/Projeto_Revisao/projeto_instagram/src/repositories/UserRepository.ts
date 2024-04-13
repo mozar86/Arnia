@@ -14,4 +14,12 @@ export class UserRepository{
     async findUserbyNicknameOrEmail(nickname: string, email: string){
         return this.userRepository.findOne({$or:[{nickname},{email}]})
     }
+
+    async findAllUsers(){
+        return this.userRepository.find()
+    }
+
+    async findByEmail(email: string) {
+        return this.userRepository.findOne({ email })
+    }
 }

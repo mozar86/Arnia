@@ -10,9 +10,9 @@ export async function createUserController(
   request: Request,
   response: Response
 ) {
-  const { fullName, nickname, email } = request.body;
+  const { fullName, nickname, email, password } = request.body;
   try {
-    const user = await userService.createUser({ fullName, nickname, email });
+    const user = await userService.createUser({ fullName, nickname, email, password });
     return response.status(201).send({ user });
   } catch (error: any) {
     response.status(400).send({ message: error.message });

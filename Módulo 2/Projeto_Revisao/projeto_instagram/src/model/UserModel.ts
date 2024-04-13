@@ -7,4 +7,4 @@ const UserSchema = new mongoose.Schema<IUser>({
     password: {type:String, required:true},
 })
 
-export const UserModel = mongoose.model('Users',UserSchema)
+export const UserModel = mongoose.model('User',UserSchema)

@@ -17,13 +17,13 @@ const HTTP_STATUS = {
 
 enum HttpStatusEnum {
     CREATED = 201,
-    BAD_REQUEST = 400
+    BAD_REQUEST = 400,
+    SUCCESS = 200
 }
 
 export async function createUserController( req: Request, res: Response) {
     try{
         const { body } = req
-        console.log(body)
         // schema
         const bodyValidator = yup.object({
             nickname: yup.string(),
@@ -43,5 +43,17 @@ export async function createUserController( req: Request, res: Response) {
         return res.status(HttpStatusEnum.BAD_REQUEST).json({
             message: error.message
         })
+    }
+
+    
+}
+
+export async function findAllUsersController( req: Request, res: Response){
+    try {
+        const allUsers = await service.findAllUsers()
+
+        res.status(HttpStatusEnum.CREATED).send({ users: allUsers })
+    } catch (error: any) {
+        res.status(HttpStatusEnum.BAD_REQUEST).send({ message: error.message })
     }
 }

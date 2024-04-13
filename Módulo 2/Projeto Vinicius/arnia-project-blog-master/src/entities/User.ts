@@ -5,6 +5,7 @@ export interface IUser {
   fullName: string;
   nickname: string;
   email: string;
+  password: string;
   posts: Array<mongoose.Types.ObjectId>;
 }
 
@@ -12,6 +13,7 @@ export interface IUserWithPosts {
   fullName: string;
   nickname: string;
   email: string;
+  password: string;
   posts: Array<IPost>;
 }
 
@@ -20,4 +22,5 @@ export interface IUserDTO {
   fullName: string;
   nickname: string;
   email: string;
+  password: string;
 }
