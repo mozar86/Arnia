@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "vitest": "^1.5.0"
+  }
+}
