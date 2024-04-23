@@ -12,7 +12,12 @@ export async function createUserController(
 ) {
   const { fullName, nickname, email, password } = request.body;
   try {
-    const user = await userService.createUser({ fullName, nickname, email, password });
+    const user = await userService.createUser({
+      fullName, 
+      nickname, 
+      email, 
+      password, 
+    });
     return response.status(201).send({ user });
   } catch (error: any) {
     response.status(400).send({ message: error.message });
@@ -25,4 +30,15 @@ export async function getAllUsersController(
 ) {
   const users = await userService.getAllUsers();
   return response.status(200).send({ users });
+}
+
+export async function authUserController(request: Request, response: Response) {
+  const { email, password } = request.body;
+  try {
+    const token = await userService.authUser(email, password);
+    return response.status(200).send({ token });
+  } catch (error: any) {
+    response.status(400).send({ message: error.message });
+  }
+
 }

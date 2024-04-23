@@ -28,4 +28,10 @@ export class UserRepository {
 
     return userWithPosts;
   }
+
+  async findUserByEmail(email: string): Promise<IUser & {
+    _id: mongoose.Types.ObjectId;
+  } | null> {
+    return this.userModel.findOne({ email }).exec();
+  }
 }
