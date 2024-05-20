@@ -10,4 +10,3 @@ export namespace UserAuthCreate {
     export type BodyType = TypedRequest<typeof userAuthCreateBodySchema>;
     export const schema = yup.object().shape({ body: userAuthCreateBodySchema });
 }
-
