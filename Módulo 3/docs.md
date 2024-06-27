@@ -8,6 +8,10 @@ https://react-hook-form.com/get-started
 
 https://styled-components.com/docs
 
+https://devdocs.io/
+
+https://pt-br.react.dev/learn/your-first-component
+
 
 
 ### Comandos
