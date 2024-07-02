@@ -1,4 +1,3 @@
-import React from "react";
 import { DivItems, Header } from "./header-style";
 
 const HeaderComponent = () => {
