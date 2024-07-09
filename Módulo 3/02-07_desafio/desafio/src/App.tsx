@@ -1,7 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { AppContainer } from "./App-styled";
 import ProductList from "./components/ProductList/ProductList";
 import ProductForm from "./components/ProductForm/ProductForm";
+import Modal from "./components/Modal/Modal";
 
 interface Product {
   id: number;
@@ -9,10 +10,38 @@ interface Product {
   description: string;
   price: number;
   quantity: number;
+  isFood: boolean;
+  isDrink: boolean;
 }
 
 const App = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [productIdToRemove, setProductIdToRemove] = useState<number | null>(null);
+  const [categoryFilter, setCategoryFilter] = useState('');
+
+  const handleRemoveClick = (id: number) => {
+    setProductIdToRemove(id);
+    setModalVisible(true);
+  };
+
+  const confirmRemoveProduct = () => {
+    if (productIdToRemove !== null) {
+      setProducts(products.filter(product => product.id !== productIdToRemove));
+    }
+    setModalVisible(false);
+  };
+
+  const cancelRemoveProduct = () => {
+    setProductIdToRemove(null);
+    setModalVisible(false);
+  };
+
+  const filteredProducts = products.filter(product => 
+    (categoryFilter === '' || (categoryFilter === 'food' && product.isFood) || (categoryFilter === 'drink' && product.isDrink)) &&
+    (product.name.toLowerCase().includes(searchTerm.toLowerCase()) || product.description.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
 
   const addProduct = (product: Omit<Product, 'id'>) => {
     const newProduct = { ...product, id: Date.now() };
@@ -26,25 +55,57 @@ const App = () => {
 
   const editProduct = (id: number) => {
     const newQuantity = window.prompt('Digite a nova quantidade:');
-    const quantity = newQuantity ? parseInt(newQuantity) : NaN;
-    if (isNaN(quantity) || quantity < 0) {
+    if (newQuantity && /^\d+$/.test(newQuantity)) {
+      const quantity = parseInt(newQuantity);
+      setProducts(products.map(product => product.id === id ? { ...product, quantity } : product));
+    } else {
       alert('Quantidade inválida.');
-      return;
     }
-    setProducts(products.map(product => product.id === id ? {...product, quantity} : product));
-  }
+  };
+
+  const editProductPrice = (id: number) => {
+    const newPrice = window.prompt('Digite o novo preço:');
+    if (newPrice && !isNaN(parseFloat(newPrice))) {
+      const price = parseFloat(newPrice);
+      setProducts(products.map(product => 
+        product.id === id ? { ...product, price } : product
+      ));
+    } else {
+      alert('Preço inválido.');
+    }
+  };
 
   return (
     <AppContainer>
       <h1>Controle de Estoque</h1>
+      <input 
+        type="text" 
+        placeholder="Buscar produtos..." 
+        value={searchTerm} 
+        onChange={(e) => setSearchTerm(e.target.value)} 
+      />
       <ProductForm 
-        onAddProduct={addProduct}
+        onAddProduct={addProduct} 
       />
       <ProductList 
-        products={products}
-        onRemoveProduct={removeProduct}
-        onEditProduct={editProduct}
+        products={filteredProducts} 
+        onRemoveProduct={handleRemoveClick} 
+        onEditProduct={editProduct} 
+        onEditPrice={editProductPrice} 
       />
+      <select 
+        onChange={(e) => setCategoryFilter(e.target.value)}>
+        <option value="">Todas</option>
+        <option value="food">Comida</option>
+        <option value="drink">Bebida</option>
+      </select>
+      {modalVisible && (
+        <Modal 
+          message="Tem certeza de que deseja remover este produto?" 
+          onConfirm={confirmRemoveProduct} 
+          onCancel={cancelRemoveProduct} 
+        />
+      )}
     </AppContainer>
   );
 };

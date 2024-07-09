@@ -19,3 +19,30 @@ Remover o produto selecionado da lista de produtos no estado.
 # Atualizar a quantidade de um produto:
 Permitir ao usuário editar a quantidade em estoque de um produto selecionado.
 Validar a nova quantidade (deve ser um número inteiro positivo).
+
+
+## Desafio
+
+.Implementar um sistema de busca para filtrar produtos por nome ou descrição.
+Exibir um alerta quando um produto estiver com estoque baixo. (produto.qtd < 5)
+
+.Trocar o window.confirm da confirmação de remoção de produto para um modal personalizado. (Não usar biblioteca)
+
+.Deverá ser possível alterar o valor do produto.
+
+.Separar produtos pelas seguintes características: Comida, Bebida, Não comestível
+Dica: Colocar atributo ao objeto ou identificar na sua descrição.
+
+Exemplo de objeto com atributos: 
+
+{
+    id:
+    nome:
+    descricao:
+    preco:
+    qtd:
+    isBebida:
+    isComida:
+}
+
+.Adicionar um filtro tipo select onde podemos filtrar pelas características do produto (comida, bebida, etc) <= isso você decide quais características colocar.

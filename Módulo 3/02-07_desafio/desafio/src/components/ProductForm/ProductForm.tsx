@@ -1,14 +1,16 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button, FormContainer, Input } from "./ProductForm-styled";
 
 interface ProductFormProps {
-    onAddProduct: (product: {
-        name: string;
-        description: string;
-        price: number;
-        quantity: number;
+    onAddProduct: (product: { 
+        name: string; 
+        description: string; 
+        price: number; 
+        quantity: number; 
+        isFood: boolean; 
+        isDrink: boolean; 
     }) => void;
-}
+  }
 
 const ProductForm = ({onAddProduct}: ProductFormProps) => {
     
@@ -16,6 +18,8 @@ const ProductForm = ({onAddProduct}: ProductFormProps) => {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [quantity, setQuantity] = useState('');
+    const [isFood, setIsFood] = useState(false);
+    const [isDrink, setIsDrink] = useState(false);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -23,16 +27,18 @@ const ProductForm = ({onAddProduct}: ProductFormProps) => {
             alert('Nome, preço e quantidade são obrigatórios!');
         }
 
-        onAddProduct({name, description, price: parseFloat(price), quantity: parseInt(quantity)});
+        onAddProduct({name, description, price: parseFloat(price), quantity: parseInt(quantity), isFood, isDrink });
 
         setName('');
         setDescription('');
         setPrice('');
         setQuantity('');
+        setIsFood(false);
+        setIsDrink(false);
     }
 
     return (
-        <FormContainer>
+        <FormContainer onSubmit={handleSubmit}>
             <Input 
                 type="text" 
                 placeholder="Nome"
@@ -57,7 +63,21 @@ const ProductForm = ({onAddProduct}: ProductFormProps) => {
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
             />
-            <Button type="submit" onSubmit={handleSubmit}>Adicionar Produto</Button>
+            <label>
+                <input 
+                    type="checkbox"
+                    checked={isFood} 
+                    onChange={(e) => setIsFood(e.target.checked)}
+                /> Comida
+            </label>
+            <label>
+                <input 
+                    type="checkbox"
+                    checked={isDrink} 
+                    onChange={(e) => setIsDrink(e.target.checked)}
+                /> Bebida
+            </label>
+            <Button type="submit">Adicionar Produto</Button>
         </FormContainer>
     );
 };

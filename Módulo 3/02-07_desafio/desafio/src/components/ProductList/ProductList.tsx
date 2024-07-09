@@ -1,14 +1,19 @@
+import React from 'react';
 import ProductItem from '../ProductItem/ProductItem';
 import { ListContainer } from './ProductList-styled';
 
+interface Product {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  quantity: number;
+  isFood: boolean;
+  isDrink: boolean;
+}
+
 interface ProductListProps {
-  products: {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-    quantity: number;
-  }[];
+  products: Product[];
   onRemoveProduct: (id: number) => void;
   onEditProduct: (id: number) => void;
 }
