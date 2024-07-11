@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, FormContainer, Input } from "./ProductForm-styled";
+import { FormContainer, Label, Input, Select, Button } from './ProductForm-styled';
 
 interface ProductFormProps {
     onAddProduct: (product: { 

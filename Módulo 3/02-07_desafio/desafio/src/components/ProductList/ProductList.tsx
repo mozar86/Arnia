@@ -16,9 +16,10 @@ interface ProductListProps {
   products: Product[];
   onRemoveProduct: (id: number) => void;
   onEditProduct: (id: number) => void;
+  onEditPrice: (id: number) => void;
 }
 
-const ProductList = ({ products, onRemoveProduct, onEditProduct }: ProductListProps) => {
+const ProductList = ({ products, onRemoveProduct, onEditProduct, onEditPrice }: ProductListProps) => {
   return (
     <ListContainer>
       {products.map(product => (
@@ -27,6 +28,7 @@ const ProductList = ({ products, onRemoveProduct, onEditProduct }: ProductListPr
           product={product} 
           onRemove={onRemoveProduct} 
           onEdit={onEditProduct}
+          onEditPrice={onEditPrice}
         />
       ))}
     </ListContainer>

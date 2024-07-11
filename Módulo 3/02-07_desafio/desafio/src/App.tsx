@@ -4,6 +4,7 @@ import ProductList from "./components/ProductList/ProductList";
 import ProductForm from "./components/ProductForm/ProductForm";
 import Modal from "./components/Modal/Modal";
 
+
 interface Product {
   id: number;
   name: string;
@@ -26,9 +27,10 @@ const App = () => {
     setModalVisible(true);
   };
 
+
   const confirmRemoveProduct = () => {
     if (productIdToRemove !== null) {
-      setProducts(products.filter(product => product.id !== productIdToRemove));
+      removeProduct(productIdToRemove);
     }
     setModalVisible(false);
   };
@@ -55,9 +57,11 @@ const App = () => {
 
   const editProduct = (id: number) => {
     const newQuantity = window.prompt('Digite a nova quantidade:');
-    if (newQuantity && /^\d+$/.test(newQuantity)) {
-      const quantity = parseInt(newQuantity);
-      setProducts(products.map(product => product.id === id ? { ...product, quantity } : product));
+    if (newQuantity && !isNaN(parseInt(newQuantity, 10))) {
+      const quantity = parseInt(newQuantity, 10);
+      setProducts(products.map(product => 
+        product.id === id ? { ...product, quantity } : product
+      ));
     } else {
       alert('Quantidade inválida.');
     }
@@ -84,21 +88,18 @@ const App = () => {
         value={searchTerm} 
         onChange={(e) => setSearchTerm(e.target.value)} 
       />
-      <ProductForm 
-        onAddProduct={addProduct} 
-      />
+      <select onChange={(e) => setCategoryFilter(e.target.value)}>
+        <option value="">Todas</option>
+        <option value="food">Comida</option>
+        <option value="drink">Bebida</option>
+      </select>
+      <ProductForm onAddProduct={addProduct} />
       <ProductList 
         products={filteredProducts} 
         onRemoveProduct={handleRemoveClick} 
         onEditProduct={editProduct} 
         onEditPrice={editProductPrice} 
       />
-      <select 
-        onChange={(e) => setCategoryFilter(e.target.value)}>
-        <option value="">Todas</option>
-        <option value="food">Comida</option>
-        <option value="drink">Bebida</option>
-      </select>
       {modalVisible && (
         <Modal 
           message="Tem certeza de que deseja remover este produto?" 

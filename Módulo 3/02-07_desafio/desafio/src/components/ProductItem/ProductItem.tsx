@@ -7,12 +7,15 @@ interface Product {
     description: string;
     price: number;
     quantity: number;
+    isFood?: boolean;
+    isDrink?: boolean;
   }
 
 interface ProductItemProps {
     product: Product;
     onRemove: (id: number) => void;
     onEdit: (id: number) => void;
+    onEditPrice: (id: number) => void;
   }
 
   const ProductItem = ({ product, onRemove, onEdit, onEditPrice }: ProductItemProps) => {
@@ -22,7 +25,7 @@ interface ProductItemProps {
           <h3>{product.name}</h3>
           <p>{product.description}</p>
           <p>Preço: ${product.price.toFixed(2)}</p>
-          <p style={{ color: product.quantity < 5 ? 'red' : 'white' }}>
+          <p style={{ color: product.quantity < 5 ? 'red' : 'black' }}>
             Quantidade: {product.quantity}
           </p>
         </ItemDetails>

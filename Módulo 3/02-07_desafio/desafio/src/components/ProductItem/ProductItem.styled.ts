@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 export const ItemContainer = styled.div`
-  background-color: #333;
-  color: #fff;
+  background-color: #C8E6C9; /* Verde claro */
+  color: #6D4C41; /* Marrom claro */
   padding: 16px;
   margin: 8px 0;
   border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;
 
 export const ItemDetails = styled.div`
@@ -29,5 +30,5 @@ export const EditButton = styled.button`
   padding: 8px;
   border-radius: 4px;
   cursor: pointer;
-  margin-left: 8px;
+  margin-right: 8px;
 `;

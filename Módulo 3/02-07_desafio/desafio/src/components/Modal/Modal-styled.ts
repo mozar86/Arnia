@@ -1,35 +1,35 @@
 import styled from 'styled-components';
 
-export const ModalContainer = styled.div`
+export const ModalBackground = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
+  align-items: center;
 `;
 
-export const ModalContent = styled.div`
-  background: #333;
+export const ModalContainer = styled.div`
+  background-color: #fff;
   padding: 20px;
   border-radius: 8px;
   text-align: center;
-  color: white;
+  border: 1px solid #E3F2FD; /* Azul claro */
 `;
 
 export const ModalButton = styled.button`
-  margin: 5px;
-  padding: 10px;
+  background-color: #FF6600;
+  color: white;
   border: none;
+  padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
-  background-color: #ff6600;
-  color: white;
+  margin: 5px;
 
   &:hover {
-    background-color: #e65c00;
+    background-color: #E65C00;
   }
 `;

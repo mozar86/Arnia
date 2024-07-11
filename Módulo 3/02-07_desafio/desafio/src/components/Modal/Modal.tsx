@@ -1,5 +1,5 @@
 import React from 'react';
-import { ModalContainer, ModalContent, ModalButton } from './Modal-styled';
+import { ModalBackground, ModalContainer, ModalButton } from './Modal-styled';
 
 interface ModalProps {
   message: string;
@@ -7,15 +7,15 @@ interface ModalProps {
   onCancel: () => void;
 }
 
-const Modal = ({ message, onConfirm, onCancel }: ModalProps) => {
+const Modal: React.FC<ModalProps> = ({ message, onConfirm, onCancel }) => {
   return (
-    <ModalContainer>
-      <ModalContent>
+    <ModalBackground>
+      <ModalContainer>
         <p>{message}</p>
         <ModalButton onClick={onConfirm}>Confirmar</ModalButton>
         <ModalButton onClick={onCancel}>Cancelar</ModalButton>
-      </ModalContent>
-    </ModalContainer>
+      </ModalContainer>
+    </ModalBackground>
   );
 };
 
