@@ -7,8 +7,8 @@ export const AppContainer = styled.div`
 
   background-color: #708090; /* Verde claro */
   color: #6D4C41; /* Marrom claro */
-  min-height: 100vh;
   font-family: 'Poppins', sans-serif;
+  height: 100%;
 
   input, select {
     margin: 10px 0;
