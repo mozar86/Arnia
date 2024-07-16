@@ -1,18 +1,12 @@
 import React, { useState } from "react";
 import { FormContainer, Label, Input, Select, Button } from './ProductForm-styled';
+import { Product } from "../../types";
 
 interface ProductFormProps {
-    onAddProduct: (product: { 
-        name: string; 
-        description: string; 
-        price: number; 
-        quantity: number; 
-        isFood: boolean; 
-        isDrink: boolean; 
-    }) => void;
+    onAddProduct: (product: Product) => void;
   }
 
-const ProductForm = ({onAddProduct}: ProductFormProps) => {
+const ProductForm: React.FC<ProductFormProps> = ({onAddProduct}: ProductFormProps) => {
     
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -27,7 +21,17 @@ const ProductForm = ({onAddProduct}: ProductFormProps) => {
             alert('Nome, preço e quantidade são obrigatórios!');
         }
 
-        onAddProduct({name, description, price: parseFloat(price), quantity: parseInt(quantity), isFood, isDrink });
+        const newProduct: Product = {
+            id: Date.now(),
+            name,
+            description,
+            price: parseFloat(price),
+            quantity: parseInt(quantity, 10),
+            isFood,
+            isDrink
+        }
+
+        onAddProduct(newProduct);
 
         setName('');
         setDescription('');

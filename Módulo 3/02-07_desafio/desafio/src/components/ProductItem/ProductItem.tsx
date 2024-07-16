@@ -1,15 +1,6 @@
 import React from 'react';
 import { ItemContainer, ItemDetails, RemoveButton, EditButton } from './ProductItem.styled';
-
-interface Product {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-    quantity: number;
-    isFood?: boolean;
-    isDrink?: boolean;
-  }
+import { Product } from '../../types';
 
 interface ProductItemProps {
     product: Product;
@@ -18,7 +9,9 @@ interface ProductItemProps {
     onEditPrice: (id: number) => void;
   }
 
-  const ProductItem = ({ product, onRemove, onEdit, onEditPrice }: ProductItemProps) => {
+  const ProductItem: React.FC<ProductItemProps> = ({ product, onRemove, onEdit, onEditPrice }: ProductItemProps) => {
+    
+
     return (
       <ItemContainer>
         <ItemDetails>
