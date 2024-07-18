@@ -10,6 +10,7 @@ const App: React.FC = () => {
 
   return (
     // Rotas  
+    <button>Modo escuro</button>
   );
 };
 
