@@ -1,34 +1,57 @@
 import styled from 'styled-components';
 
-export const ItemContainer = styled.div`
-  background-color: #C8E6C9; /* Verde claro */
-  color: #6D4C41; /* Marrom claro */
-  padding: 16px;
-  margin: 8px 0;
-  border-radius: 4px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+export const ProductContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin: 10px 0;
+  background: ${({ theme }) => theme.productBackground};
+  border-radius: 8px;
 `;
 
-export const ItemDetails = styled.div`
+export const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-export const RemoveButton = styled.button`
-  background-color: red;
-  color: white;
-  border: none;
-  padding: 8px;
-  border-radius: 4px;
+export const ProductName = styled.h3`
+  margin: 0;
+  color: ${({ theme }) => theme.text};
+`;
+
+export const ProductDescription = styled.p`
+  margin: 5px 0;
+  color: ${({ theme }) => theme.text};
+`;
+
+export const ProductQuantity = styled.span`
+  color: ${({ theme }) => theme.text};
   cursor: pointer;
 `;
 
-export const EditButton = styled.button`
-  background-color: blue;
-  color: white;
-  border: none;
-  padding: 8px;
-  border-radius: 4px;
+export const ProductPrice = styled.span`
+  color: ${({ theme }) => theme.text};
   cursor: pointer;
-  margin-right: 8px;
+`;
+
+export const ProductCategory = styled.span`
+  color: ${({ theme }) => theme.text};
+`;
+
+export const Input = styled.input`
+  width: 80px;
+  margin-left: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+`;
+
+export const RemoveButton = styled.button`
+  background: ${({ theme }) => theme.buttonBackground};
+  color: ${({ theme }) => theme.buttonText};
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
 `;

@@ -1,90 +1,66 @@
-import React, { useState } from "react";
-import { FormContainer, Label, Input, Select, Button } from './ProductForm-styled';
-import { Product } from "../../types";
+import React, { useState } from 'react';
+import { Form, Input, Button, Label, Select, Option } from './ProductForm-styled';
+import { Product } from '../../types';
 
 interface ProductFormProps {
-    onAddProduct: (product: Product) => void;
-  }
+  onAddProduct: (product: Product) => void;
+}
 
-const ProductForm: React.FC<ProductFormProps> = ({onAddProduct}: ProductFormProps) => {
-    
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState('');
-    const [quantity, setQuantity] = useState('');
-    const [isFood, setIsFood] = useState(false);
-    const [isDrink, setIsDrink] = useState(false);
+const ProductForm: React.FC<ProductFormProps> = ({ onAddProduct }) => {
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('');
+  const [quantity, setQuantity] = useState('');
+  const [category, setCategory] = useState('Comida');
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!name || !price || !quantity) {
-            alert('Nome, preço e quantidade são obrigatórios!');
-        }
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name || !description || !price || !quantity) return;
 
-        const newProduct: Product = {
-            id: Date.now(),
-            name,
-            description,
-            price: parseFloat(price),
-            quantity: parseInt(quantity, 10),
-            isFood,
-            isDrink
-        }
+    // Task #2: Adicionar novos produtos
+    const newProduct: Product = {
+      id: Date.now(),
+      name,
+      description,
+      price: parseFloat(price),
+      quantity: parseInt(quantity, 10),
+      category,
+      isFood: false,
+      isDrink: false
+    };
 
-        onAddProduct(newProduct);
+    onAddProduct(newProduct);
+    setName('');
+    setDescription('');
+    setPrice('');
+    setQuantity('');
+    setCategory('Comida');
+  };
 
-        setName('');
-        setDescription('');
-        setPrice('');
-        setQuantity('');
-        setIsFood(false);
-        setIsDrink(false);
-    }
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Label htmlFor="name">Nome do Produto</Label>
+      <Input id="name" value={name} onChange={(e) => setName(e.target.value)} />
 
-    return (
-        <FormContainer onSubmit={handleSubmit}>
-            <Input 
-                type="text" 
-                placeholder="Nome"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-            />
-            <Input 
-                type="text" 
-                placeholder="Descrição"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-            />
-            <Input 
-                type="number" 
-                placeholder="Preço"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-            />
-            <Input
-                type="number" 
-                placeholder="Quantidade"
-                value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
-            />
-            <label>
-                <input 
-                    type="checkbox"
-                    checked={isFood} 
-                    onChange={(e) => setIsFood(e.target.checked)}
-                /> Comida
-            </label>
-            <label>
-                <input 
-                    type="checkbox"
-                    checked={isDrink} 
-                    onChange={(e) => setIsDrink(e.target.checked)}
-                /> Bebida
-            </label>
-            <Button type="submit">Adicionar Produto</Button>
-        </FormContainer>
-    );
+      <Label htmlFor="description">Descrição</Label>
+      <Input id="description" value={description} onChange={(e) => setDescription(e.target.value)} />
+
+      <Label htmlFor="price">Preço</Label>
+      <Input id="price" value={price} onChange={(e) => setPrice(e.target.value)} />
+
+      <Label htmlFor="quantity">Quantidade</Label>
+      <Input id="quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+
+      <Label htmlFor="category">Categoria</Label>
+      <Select id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
+        <Option value="Comida">Comida</Option>
+        <Option value="Bebida">Bebida</Option>
+        <Option value="Não comestível">Não comestível</Option>
+      </Select>
+
+      <Button type="submit">Adicionar Produto</Button>
+    </Form>
+  );
 };
 
 export default ProductForm;
-

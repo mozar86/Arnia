@@ -1,24 +1,28 @@
 import React from 'react';
-import { ModalBackground, ModalContainer, ModalButton } from './Modal-styled';
+import { ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, ModalButton } from './Modal-styled';
 
 interface ModalProps {
-  isOpen: boolean;
-  onConfirm: () => void;
-  onCancel: () => void;
+  show: boolean;
+  title: string;
   children: React.ReactNode;
+  onClose: () => void;
+  onConfirm: () => void;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onCancel, onConfirm, children }) => {
-  if (!isOpen) return null;
+const Modal: React.FC<ModalProps> = ({ show, title, children, onClose, onConfirm }) => {
+  if (!show) return null;
 
   return (
-    <ModalBackground>
-      <ModalContainer>
-        {children}
-        <ModalButton onClick={onConfirm}>Confirmar</ModalButton>
-        <ModalButton onClick={onCancel}>Cancelar</ModalButton>
-      </ModalContainer>
-    </ModalBackground>
+    <ModalOverlay>
+      <ModalContent>
+        <ModalHeader>{title}</ModalHeader>
+        <ModalBody>{children}</ModalBody>
+        <ModalFooter>
+          <ModalButton onClick={onClose}>Cancelar</ModalButton>
+          <ModalButton onClick={onConfirm}>Confirmar</ModalButton>
+        </ModalFooter>
+      </ModalContent>
+    </ModalOverlay>
   );
 };
 
