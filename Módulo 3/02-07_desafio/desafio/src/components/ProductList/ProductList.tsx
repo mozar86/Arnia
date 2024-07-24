@@ -1,55 +1,25 @@
-import React, { useState } from 'react';
-import { ProductListContainer, SearchBar, SelectFilter } from './ProductList-styled';
-import ProductItem from '../ProductItem/ProductItem';
-import { Product } from '../../types';
+import { Product } from "../../types";
+import ProductItem from "../ProductItem/ProductItem";
 
-interface ProductListProps {
+// Task 1: Exibir uma lista de produtos
+type ProductListProps = {
   products: Product[];
   onRemoveProduct: (id: number) => void;
-  onEditProduct: (id: number, newQuantity: number) => void;
-  onEditPrice: (id: number, newPrice: number) => void;
-}
+  onEditProduct: (id: number, quantity: number) => void;
+};
 
-const ProductList: React.FC<ProductListProps> = ({ products, onRemoveProduct, onEditProduct, onEditPrice }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filter, setFilter] = useState('');
-
-  const filteredProducts = products.filter(product => {
-    // Task #7: Sistema de busca para filtrar produtos por nome ou descrição
-    const matchesSearchTerm = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                              product.description.toLowerCase().includes(searchTerm.toLowerCase());
-    // Task #10.2: Filtro tipo select para filtrar pelas características do produto
-    const matchesFilter = filter === '' || product.category === filter;
-    return matchesSearchTerm && matchesFilter;
-  });
-
+const ProductList = ({ products, onRemoveProduct, onEditProduct }: ProductListProps) => {
   return (
-    <ProductListContainer>
-      <SearchBar 
-        type="text"
-        placeholder="Buscar produtos..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-      <SelectFilter
-        value={filter}
-        onChange={(e) => setFilter(e.target.value)}
-      >
-        <option value="">Todos</option>
-        <option value="Comida">Comida</option>
-        <option value="Bebida">Bebida</option>
-        <option value="Não comestível">Não comestível</option>
-      </SelectFilter>
-      {filteredProducts.map(product => (
-        <ProductItem 
+    <div>
+      {products.map(product => (
+        <ProductItem
           key={product.id}
           product={product}
-          onRemoveProduct={onRemoveProduct}
-          onEditProduct={onEditProduct}
-          onEditPrice={onEditPrice}
+          onRemove={onRemoveProduct}
+          onEdit={onEditProduct}
         />
       ))}
-    </ProductListContainer>
+    </div>
   );
 };
 

@@ -1,89 +1,79 @@
-import React, { useState, useEffect, createContext, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './pages/HomePage';
-import AddProduct from './pages/NewProductPage';
-import { ThemeProvider } from 'styled-components';
+import Home from './pages/Home';
+import { AppContainer, AppHeader, ThemeButton } from './App-styled';
 import { Product } from './types';
+import NewProduct from './pages/NewProduct';
+import { ThemeContext, ThemeProvider } from './context/themeContext';
 
-const lightTheme = {
-  body: '#FFF',
-  text: '#000',
-  productBackground: '#f9f9f9',
-  buttonBackground: '#000',
-  buttonText: '#FFF',
-  modalBackground: '#FFF',
-};
-
-const darkTheme = {
-  body: '#333',
-  text: '#FFF',
-  productBackground: '#444',
-  buttonBackground: '#FFF',
-  buttonText: '#000',
-  modalBackground: '#333',
-};
-
-const ThemeContext = createContext({
-  theme: lightTheme,
-  toggleTheme: () => {},
-});
-
-export const useTheme = () => useContext(ThemeContext);
-
+// Task 5: Implementar tema claro ou escuro utilizando o useContext()
 const App = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [balance, setBalance] = useState(100); // Task #10.3: Implementação da carteira
-  const [theme, setTheme] = useState(lightTheme);
+  const [balance, setBalance] = useState<number>(100);
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
+  // Task 6: Incluir no título de cada aba de produtos a quantidade de produtos total para aquela aba em específico utilizando o useEffect()
   useEffect(() => {
-    document.title = `Produtos (${products.length})`; // Task #6: Atualizar título da aba
-  }, [products.length]);
+    document.title = `Total de produtos: ${products.length}`;
+  }, [products]);
 
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === lightTheme ? darkTheme : lightTheme));
-  };
-
-  const addProduct = (product: Product) => {
-    if (balance >= product.price) { // Verificação de saldo suficiente
-      setProducts((prevProducts) => [...prevProducts, product]);
-      setBalance((prevBalance) => prevBalance - product.price); // Subtração do valor do produto da carteira
+  // Task 2: Função para adicionar novos produtos
+  const addProduct = (newProduct: Product) => {
+    if (balance >= newProduct.price) {
+      setProducts([...products, newProduct]);
+      setBalance(balance - newProduct.price);
     } else {
-      alert('Saldo insuficiente!');
+      alert('Saldo insuficiente');
     }
   };
 
+  // Task 3: Função para remover produtos (vender produtos)
   const removeProduct = (id: number) => {
-    setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
+    const confirmSell = Math.random() > 0.5;
+    if (confirmSell) {
+      const productToRemove = products.find(product => product.id === id);
+      if (productToRemove) {
+        setBalance(balance + Math.min(productToRemove.price * 1.2, productToRemove.price));
+      }
+    }
+    setProducts(products.filter(product => product.id !== id));
   };
 
-  const editProduct = (id: number, newQuantity: number) => {
-    setProducts((prevProducts) =>
-      prevProducts.map((product) =>
-        product.id === id ? { ...product, quantity: newQuantity } : product
-      )
+  // Task 4: Função para editar a quantidade de produtos
+  const editProduct = (id: number, quantity: number) => {
+    setProducts(products.map(product => product.id === id ? { ...product, quantity } : product));
+  };
+
+  // Task 7: Função para busca de produtos
+  const searchProducts = (searchTerm: string) => {
+    return products.filter(product => 
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.description.toLowerCase().includes(searchTerm.toLowerCase())
     );
   };
 
-  const editPrice = (id: number, newPrice: number) => {
-    setProducts((prevProducts) =>
-      prevProducts.map((product) =>
-        product.id === id ? { ...product, price: newPrice } : product
-      )
-    );
+  // Task 8: Separar produtos por categoria
+  const filterByCategory = (category: string) => {
+    return products.filter(product => product.category === category);
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Router>
+    <ThemeProvider>
+      <Router>
+        <AppContainer>
+          <AppHeader>
+            <h1>Controle de Estoque</h1>
+            <ThemeButton onClick={toggleTheme}>
+              {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
+            </ThemeButton>
+          </AppHeader>
           <Routes>
-            <Route path="/" element={<Home products={products} onRemoveProduct={removeProduct} onEditProduct={editProduct} onEditPrice={editPrice} />} />
-            <Route path="/add" element={<AddProduct onAddProduct={addProduct} />} />
+            <Route path="/" element={<Home products={products} onRemoveProduct={removeProduct} onEditProduct={editProduct} onSearchProducts={searchProducts} onFilterByCategory={filterByCategory} />} />
+            <Route path="/new" element={<NewProduct onAddProduct={addProduct} />} />
           </Routes>
-        </Router>
-      </ThemeProvider>
-    </ThemeContext.Provider>
+        </AppContainer>
+      </Router>
+    </ThemeProvider>
   );
 };
 

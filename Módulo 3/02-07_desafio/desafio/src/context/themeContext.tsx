@@ -1,27 +1,25 @@
-import React, { useContext, useState } from "react"
+import React, { createContext, useState, ReactNode } from 'react';
 
-interface ThemeContextType {
-    themePage: boolean
-    configThemePage: () => void
-}
+type ThemeContextType = {
+  theme: string;
+  toggleTheme: () => void;
+};
 
-const ThemeContext = React.createContext<ThemeContextType>({
-    themePage: false,
-    configThemePage: () => {}
-})
+export const ThemeContext = createContext<ThemeContextType>({
+  theme: 'light',
+  toggleTheme: () => {},
+});
 
-export function ThemeContextProvider ({children}: any) {
-    const [themePage, setThemePage] = useState<boolean>(false)
+export const ThemeProvider = ({ children }: { children: ReactNode }) => {
+  const [theme, setTheme] = useState('light');
 
-    const configThemePage = () => {
-        setThemePage(!themePage)
-    }
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
 
-    return (
-        <ThemeContext.Provider value={{themePage, configThemePage}}>
-            {children}
-        </ThemeContext.Provider>
-    )
-}
-
-export const useTheme = (): ThemeContextType => useContext(ThemeContext)
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};

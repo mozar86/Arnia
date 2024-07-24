@@ -1,79 +1,57 @@
 import React, { useState } from 'react';
-import { ProductContainer, InfoContainer, ProductName, ProductDescription, ProductQuantity, ProductPrice, ProductCategory, Input, RemoveButton } from './ProductItem.styled';
-import Modal from '../Modal/Modal';
 import { Product } from '../../types';
 
-interface ProductItemProps {
+// Task 3: Remover produtos (vender produtos)
+// Task 4: Atualizar a quantidade de um produto
+// Desafio 10.1: Trocar o window.confirm da confirmação de remoção de produto para um modal personalizado
+// Desafio 10.4: Modal de confirmação de venda
+
+type ProductItemProps = {
   product: Product;
-  onRemoveProduct: (id: number) => void;
-  onEditProduct: (id: number, newQuantity: number) => void;
-  onEditPrice: (id: number, newPrice: number) => void;
-}
+  onRemove: (id: number) => void;
+  onEdit: (id: number, quantity: number) => void;
+};
 
-const ProductItem: React.FC<ProductItemProps> = ({ product, onRemoveProduct, onEditProduct, onEditPrice }) => {
-  const [isEditingQuantity, setIsEditingQuantity] = useState(false);
-  const [isEditingPrice, setIsEditingPrice] = useState(false);
-  const [quantity, setQuantity] = useState(product.quantity.toString());
-  const [price, setPrice] = useState(product.price.toString());
+const ProductItem = ({ product, onRemove, onEdit }: ProductItemProps) => {
   const [showModal, setShowModal] = useState(false);
+  const [quantity, setQuantity] = useState(product.quantity);
 
-  const handleEditQuantity = () => {
-    if (isEditingQuantity) {
-      // Task #4: Atualizar a quantidade de um produto
-      const newQuantity = parseInt(quantity, 10);
-      if (!isNaN(newQuantity) && newQuantity >= 0) {
-        onEditProduct(product.id, newQuantity);
-      }
-    }
-    setIsEditingQuantity(!isEditingQuantity);
+  const handleRemove = () => {
+    setShowModal(true);
   };
 
-  const handleEditPrice = () => {
-    if (isEditingPrice) {
-      // Task #4: Atualizar o preço de um produto
-      const newPrice = parseFloat(price);
-      if (!isNaN(newPrice) && newPrice >= 0) {
-        onEditPrice(product.id, newPrice);
-      }
-    }
-    setIsEditingPrice(!isEditingPrice);
+  const handleConfirmRemove = () => {
+    onRemove(product.id);
+    setShowModal(false);
+  };
+
+  const handleEdit = () => {
+    onEdit(product.id, quantity);
   };
 
   return (
-    <ProductContainer>
-      <InfoContainer>
-        <ProductName>{product.name}</ProductName>
-        <ProductDescription>{product.description}</ProductDescription>
-        <ProductCategory>{product.category}</ProductCategory>
-        <ProductQuantity onClick={handleEditQuantity}>
-          {isEditingQuantity ? (
-            <Input value={quantity} onChange={(e) => setQuantity(e.target.value)} />
-          ) : (
-            `Quantidade: ${product.quantity}`
-          )}
-        </ProductQuantity>
-        <ProductPrice onClick={handleEditPrice}>
-          {isEditingPrice ? (
-            <Input value={price} onChange={(e) => setPrice(e.target.value)} />
-          ) : (
-            `Preço: ${product.price.toFixed(2)}`
-          )}
-        </ProductPrice>
-      </InfoContainer>
-      <RemoveButton onClick={() => setShowModal(true)}>Remover</RemoveButton>
-      <Modal
-        show={showModal}
-        title="Confirmação de Remoção"
-        onClose={() => setShowModal(false)}
-        onConfirm={() => {
-          // Task #3: Remover produtos
-          onRemoveProduct(product.id);
-          setShowModal(false);
-        }}
-      >
-        Tem certeza que deseja remover este produto?
-      </Modal>
-    </ProductContainer>
+    <div>
+      <h3>{product.name}</h3>
+      <p>{product.description}</p>
+      <p>Preço: {product.price}</p>
+      <p>Quantidade: {product.quantity}</p>
+      <p>Categoria: {product.category}</p>
+      <button onClick={handleRemove}>Remover</button>
+      <input
+        type="number"
+        value={quantity}
+        onChange={(e) => setQuantity(Number(e.target.value))}
+      />
+      <button onClick={handleEdit}>Atualizar Quantidade</button>
+
+      {showModal && (
+        <div className="modal">
+          <p>Tem certeza que deseja remover este produto?</p>
+          <button onClick={handleConfirmRemove}>Sim</button>
+          <button onClick={() => setShowModal(false)}>Não</button>
+        </div>
+      )}
+    </div>
   );
 };
 

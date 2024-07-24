@@ -4,10 +4,11 @@ import App from './App.tsx'
 import './index.css';
 import { ThemeContextProvider } from './context/themeContext.tsx';
 
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ThemeContextProvider>
       <App />
     </ThemeContextProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
 )
