@@ -19,7 +19,7 @@ const ProductItem = ({ product, onRemove, onEdit }: ProductItemProps) => {
   const handleRemove = () => {
     setShowModal(true);
   };
-
+ 
   const handleConfirmRemove = () => {
     onRemove(product.id);
     setShowModal(false);
