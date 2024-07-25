@@ -14,17 +14,19 @@ const ProductForm = ({ onAddProduct }: ProductFormProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !price || !quantity) {
-      alert('Todos os campos são obrigatórios');
+    if (!name || price <= 0 || quantity <= 0) {
+      alert('Nome, preço e quantidade são obrigatórios e devem ser maiores que zero.');
       return;
     }
     const newProduct: Product = {
-      id: Math.random(),
+      id: Date.now(), 
       name,
       description,
       price,
       quantity,
       category,
+      isFood: category === 'Comida',
+      isDrink: category === 'Bebida',
     };
     onAddProduct(newProduct);
     setName('');
@@ -58,7 +60,7 @@ const ProductForm = ({ onAddProduct }: ProductFormProps) => {
           <option value="">Selecione</option>
           <option value="Comida">Comida</option>
           <option value="Bebida">Bebida</option>
-          <option value="Não comestível">Não comestível</option>
+          <option value="NaoComestivel">Não comestível</option>
         </select>
       </label>
       <button type="submit">Adicionar Produto</button>

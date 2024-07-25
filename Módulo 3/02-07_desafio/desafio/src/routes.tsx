@@ -1,14 +1,15 @@
 import React from 'react';
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import Home from './pages/Home';
 import NewProduct from './pages/NewProduct';
 
 const AppRoutes = () => (
-  <Router>
+  <BrowserRouter>
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/add" element={<NewProduct />} />
+      <Route path="/new" element={<NewProduct />} />
     </Routes>
-  </Router>
+  </BrowserRouter>
 );
 
 export default AppRoutes;

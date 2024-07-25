@@ -1,3 +1,5 @@
+export type Category = 'Comida' | 'Bebida' | 'NaoComestivel';
+
 export interface Product {
     id: number;
     name: string;

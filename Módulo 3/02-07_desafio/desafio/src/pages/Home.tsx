@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { HomeContainer } from './Home-styled';
-import { Product } from '../types';
+import { Product, Category } from '../types';
 import ProductList from '../components/ProductList/ProductList';
 
 type HomeProps = {
   products: Product[];
   onRemoveProduct: (id: number) => void;
   onEditProduct: (id: number, quantity: number) => void;
-  onSearchProducts: (searchTerm: string) => Product[];
-  onFilterByCategory: (category) => Product[];
+  onSearchProducts: (query: string) => Product[];
+  onFilterByCategory: (category: string) => Product[];
 };
 
 const Home: React.FC<HomeProps> = ({ products, onRemoveProduct, onEditProduct, onSearchProducts, onFilterByCategory }) => {
