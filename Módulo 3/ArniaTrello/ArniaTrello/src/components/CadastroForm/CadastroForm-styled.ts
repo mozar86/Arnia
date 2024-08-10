@@ -5,7 +5,8 @@ export const DivForm = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 961px;
+  width: 567px;
   background-color: #f0f0f0;
 `;
 
@@ -18,8 +19,9 @@ export const Title = styled.h1`
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 300px;
-  background: #fff;
+  background: #3A72F8;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -30,24 +32,26 @@ export const Label = styled.label`
   flex-direction: column;
   margin-bottom: 1rem;
   font-size: 1rem;
-  color: #333;
+  color: #fff;
 `;
 
 export const Input = styled.input`
+  width: 17em;
   padding: 0.5rem;
   font-size: 1rem;
   margin-top: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 25px;
+  border: none;
 `;
 
 export const Button = styled.button`
   padding: 0.5rem;
   font-size: 1rem;
   color: #fff;
-  background-color: #007bff;
+  background-color: #0A2668;
   border: none;
-  border-radius: 4px;
+  border-radius: 25px;
+  width: 209px;
   cursor: pointer;
   &:hover {
     background-color: #0056b3;
