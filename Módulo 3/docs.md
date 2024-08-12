@@ -10,8 +10,11 @@ https://styled-components.com/docs
 
 https://devdocs.io/
 
-https://pt-br.react.dev/learn/your-first-component
+https://reactrouter.com/en/main
 
+https://mui.com/
+
+https://nextjs.org/
 
 
 ### Comandos

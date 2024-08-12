@@ -1,0 +1,10 @@
+
+const Login = () => {
+
+    
+    return (
+        console.log('Login')
+    );
+};
+
+export default Login;
