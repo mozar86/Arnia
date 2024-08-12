@@ -1,17 +1,10 @@
-import { 
-  BrowserRouter as Router, 
-  Routes, 
-  Route 
-} from "react-router-dom";
-import Login from "./pages/login/Login";
+import AppRoutes from "./Routes";
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </Router>
+    <AppContainer>
+      <AppRoutes />
+    </AppContainer>
   );
 };
 

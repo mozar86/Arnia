@@ -1,9 +1,18 @@
+import Input from "../../components/Input";
+import { LoginBanner, LoginContainer, LoginForm } from "./Login-Styles";
 
 const Login = () => {
 
     
     return (
-        console.log('Login')
+        <LoginContainer>
+            <LoginForm>
+                <Input label={""} />
+            </LoginForm>
+            <LoginBanner>
+                
+            </LoginBanner>
+        </LoginContainer>
     );
 };
 
